@@ -270,7 +270,61 @@ body::before{content:'';position:fixed;top:0;left:0;right:0;height:96px;backgrou
 @media screen and (max-width:1199px){html{scroll-padding-top:132px}body::before{height:132px}.chapter-page>.screen{scroll-margin-top:0}}
 @media screen and (max-width:600px){html{scroll-padding-top:120px}body::before{height:120px}.chapter-page>.screen{scroll-margin-top:0}}
 @media print{body::before{display:none}}
-</style></head>
+</style><style id="v5-styles">
+/* Scoped additions for the five agreed r5 changes. */
+.v5-intro{margin-bottom:28px;max-width:62ch}
+.v5-automation{display:flex;align-items:center;gap:36px;margin-bottom:38px}
+.v5-automation .huge{font-size:clamp(72px,8vw,120px);line-height:1;white-space:nowrap;letter-spacing:-.06em}
+.v5-automation h1{font-size:clamp(30px,3.2vw,45px);line-height:1.1;max-width:23ch}
+.v5-step{font-size:14px;color:var(--red);font-variant-numeric:tabular-nums}
+.v5-cycle{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 34px}
+.v5-cycle li{position:relative;border-top:1px solid var(--line);padding-top:16px;min-width:0}
+.v5-cycle .subtle-label{margin:12px 0 8px;font-size:14px}
+.v5-cycle h2,.v5-effect h2{font-size:25px;line-height:1.12;font-weight:400;margin-bottom:12px}
+.v5-cycle li>p:last-of-type,.v5-effect p{font-size:18px;line-height:1.4;color:var(--muted)}
+.v5-cycle-arrow{position:absolute;right:0;top:12px;width:20px;height:20px;color:var(--muted)}
+.v5-cycle-return{display:flex;gap:16px;align-items:center;border-top:1px solid var(--line);padding-top:18px;margin-top:24px;font-size:18px;line-height:1.4;color:var(--muted)}
+.v5-cycle-return svg{flex-shrink:0;color:var(--red)}
+.v5-control{border:1px solid var(--line);border-radius:8px;padding:0 28px}
+.v5-control-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0}
+.v5-control-row{display:grid;grid-template-columns:24px minmax(0,1fr) minmax(160px,28%);align-items:start;gap:24px;border-top:1px solid var(--line);padding:24px 0}
+.v5-control-row h2{font-weight:400;font-size:27px;line-height:1.2;margin-bottom:8px}
+.v5-control-row p{font-size:18px;line-height:1.4;color:var(--muted);max-width:49ch}
+.v5-rule-result{font-size:17px;line-height:1.4;border-left:2px solid var(--red);padding-left:16px}
+.v5-effect{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+.v5-effect>div{border-top:1px solid var(--line);padding-top:18px}
+.v5-effect h2{margin-top:22px}
+.v5-economics-note{border-top:1px solid var(--line);padding-top:22px;margin-top:32px;display:grid;grid-template-columns:1fr 2fr;gap:34px}
+.v5-economics-note h2{font-size:27px;line-height:1.15;font-weight:400}
+.v5-economics-note p{font-size:21px;color:var(--muted);line-height:1.4}
+.v5-cash-condition{margin-top:20px;max-width:90ch}
+@media(max-width:999px){
+ .v5-effect{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .v5-cycle{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .v5-control-row{grid-template-columns:24px minmax(0,1fr);gap:16px}
+ .v5-rule-result{grid-column:2}
+ .v5-economics-note{grid-template-columns:1fr;gap:14px}
+}
+@media(max-width:600px){
+ .v5-intro{margin-bottom:24px}
+ .v5-automation{align-items:flex-start;flex-direction:column;gap:16px;margin-bottom:30px}
+ .v5-automation .huge{font-size:84px}
+ .v5-automation h1{font-size:32px}
+ .v5-cycle,.v5-effect{grid-template-columns:1fr;gap:24px}
+ .v5-cycle li{padding-bottom:14px}
+ .v5-cycle-arrow{transform:rotate(90deg)}
+ .v5-cycle h2,.v5-effect h2{font-size:27px}
+ .v5-control{padding:0 18px}
+ .v5-control-top{align-items:flex-start;flex-direction:column;gap:12px}
+ .v5-control-row{column-gap:12px;padding:22px 0}
+ .v5-control-row h2{font-size:25px}
+ .v5-control-row p,.v5-rule-result{font-size:17px}
+ .v5-economics-note{margin-top:24px}
+ .v5-economics-note p{font-size:20px}
+}
+
+</style>
+</head>
 <body><a class="skip" href="#main">Перейти к содержанию</a>
 <header class="site-header"><div class="header-inner"><a class="brand" href="#/about" aria-label="Айвел — о нас"><img id="brand-img" width="106" height="20" alt="Айвел"></a><nav id="chapter-nav" class="chapter-nav" aria-label="Ход демонстрации"></nav><span id="mobile-section" class="mobile-section">О нас</span><button type="button" id="open-contents" class="icon-button header-menu" aria-label="Открыть дополнительные материалы" aria-haspopup="dialog"></button></div></header>
 <main id="main" class="container" tabindex="-1"></main>
@@ -582,7 +636,7 @@ function setActivePage(page){
   document.querySelectorAll('[data-group]').forEach(a=>{if(Number(a.dataset.group)===index)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
   document.getElementById('mobile-section').textContent=pageTitles[index]||'Демонстрация';
 }
-function renderScreen(s){
+function renderScreenR4(s){
   let result=renderScreenR3(s);
   if(s.id==='M5'){
     const first=processJourneyStart(state.process);
@@ -677,6 +731,82 @@ document.addEventListener('click',e=>{
   }
   const a=e.target.closest('a[href^="#/"]');
   if(a&&a.getAttribute('href')===location.hash){e.preventDefault();scrollToBlock(parseView().anchor);}
+},true);
+
+// r5: only the five agreed additions to the published demonstration.
+function addDemoScreen(id,title,section,after){
+  const s={id,title,section,visible_copy:[],navigation:[]};
+  D.screens.push(s);screenMap.set(id.toLowerCase(),s);ALL.push(id.toLowerCase());
+  const group=D.groups.find(g=>g.title===section);
+  group.screens.splice(group.screens.indexOf(after)+1,0,id);
+  screenPage.set(id.toLowerCase(),screenPage.get(after.toLowerCase()));
+}
+addDemoScreen('D9','Агенты замыкают цикл сверки','Демо','D7');
+addDemoScreen('Q9','Правила контроля вы настраиваете сами','Качество','Q3');
+addDemoScreen('C5','Берём участок первички на аутсорсинг','Стоимость','C0');
+for(const ids of Object.values(showRoutes))ids.splice(ids.indexOf('q3')+1,0,'q9');
+showRoutes.primary.splice(showRoutes.primary.indexOf('d2')+1,0,'d9');
+showRoutes.reconciliation.splice(showRoutes.reconciliation.indexOf('d7')+1,0,'d9');
+showRoutes.primary.splice(showRoutes.primary.indexOf('c0')+1,0,'c5');
+chapterCopy.quality[1].splice(chapterCopy.quality[1].findIndex(x=>x[0]==='q3')+1,0,['q9','Ваши правила']);
+chapterCopy.cost[1].splice(chapterCopy.cost[1].findIndex(x=>x[0]==='c0')+1,0,['c5','Аутсорсинг первички']);
+
+function closedReconciliation(s){
+  const steps=[
+    ['Агент сверки','Находит расхождение','Определяет, каких документов не хватает или какие суммы не совпадают.'],
+    ['Агент сверки','Пишет поставщику','Просит прислать первичку или устранить расхождения.'],
+    ['Поставщик','Присылает документы','Ответ и вложения поступают в тот же рабочий контекст.'],
+    ['Оркестратор','Передаёт первичнику','Направляет документы агенту вместе с историей запроса.'],
+    ['Агент первички','Проверяет и проводит','Отражает документы в 1С и сообщает агенту сверки о результате.'],
+    ['Агент сверки','Повторяет сверку','Сопоставляет обновлённый учёт с актом и фиксирует результат.']
+  ];
+  return head(s)+`<p class="lead v5-intro">От расхождения — до проведённых документов и повторной сверки.</p><ol class="v5-cycle">${steps.map(([who,title,copy],i)=>`<li><span class="v5-step">${String(i+1).padStart(2,'0')}</span><p class="subtle-label">${who}</p><h2>${title}</h2><p>${copy}</p>${i<steps.length-1?icon('arrow','v5-cycle-arrow'):''}</li>`).join('')}</ol><div class="v5-cycle-return">${icon('back')}<p>Осталось расхождение — агент продолжает цикл. Спорный случай передаёт человеку с документами и перепиской.</p></div><div class="actions">${action('video','Посмотреть связку агентов','data-video="three-agents"')}</div>`;
+}
+function customerControl(s){
+  return head(s)+`<p class="lead v5-intro">Вы определяете границы автоматической обработки и условия подключения человека.</p><div class="v5-control"><div class="v5-control-top"><span class="subtle-label">Платформа · правила контроля</span><span class="tag">Пример правил</span></div><div class="v5-control-row"><span class="v5-step">01</span><div><h2>Пороги материальности</h2><p>Какие суммы и отклонения требуют проверки бухгалтером.</p></div><span class="v5-rule-result">Выше порога — человеку</span></div><div class="v5-control-row"><span class="v5-step">02</span><div><h2>Контрагенты</h2><p>Для каких поставщиков и клиентов обязательно ручное согласование.</p></div><span class="v5-rule-result">Выбранный контрагент — человеку</span></div><div class="v5-control-row"><span class="v5-step">03</span><div><h2>Исключения</h2><p>Неоднозначный выбор, недостаточная уверенность или нехватка контекста.</p></div><span class="v5-rule-result">Сработало условие — человеку</span></div></div><p class="outcome spaced">Агент выполняет типовые операции. Человек получает исключения с причиной передачи и полным контекстом.</p>`;
+}
+function outsourcingScreen(s){
+  return head(s)+`<p class="lead v5-intro">Внедряем систему и берём весь участок первички в наше производство.</p><div class="v5-outsourcing">${briefBlocks([
+    ['Агенты обрабатывают поток','Типовые документы проходят автоматически.'],
+    ['Наша команда разбирает исключения','Оставшаяся ручная работа переходит к нашим бухгалтерам.'],
+    ['Вы контролируете результат','Сохраняете прозрачность работы и снижаете себестоимость участка.']
+  ])}</div><div class="v5-economics-note"><h2>Когда это даёт эффект</h2><p>Ручной работы уже мало, но для неё всё ещё нужно держать собственную команду. Мы объединяем этот объём с нашей практикой и берём участок целиком.</p></div><div class="actions">${action('discuss-outsourcing','Обсудить участок на аутсорсинг')}</div>`;
+}
+function renderScreen(s){
+  if(s.id==='M5'&&['primary','reconciliation'].includes(state.process)){
+    const primary=state.process==='primary',q=D.questions[state.process];
+    return head(s,{hideTitle:true})+`<div class="v5-automation"><p class="huge red">${primary?'85%':'&gt;90%'}</p><h1>${primary?'первичных документов':'актов сверки'}<br>без участия человека</h1></div>`+discussionQuestions([
+      'А какая доля у вас сейчас проходит без участия человека?',q[0],q[1],q[3]
+    ])+`<div class="actions">${link(processJourneyStart(state.process),'Далее: кейсы')}</div>`;
+  }
+  if(s.id==='D9')return closedReconciliation(s);
+  if(s.id==='Q9')return customerControl(s);
+  if(s.id==='Q1')return head(s,{hideTitle:true})+`<h1 class="screen-title">Качество проверяем по результату</h1><div class="quality-hero"><p class="huge red">&lt;1,3%</p><p>ошибок в первичке<br>ЗиР · август–сентябрь 2026</p></div><p class="lead v5-intro">Высокая доля автоматической обработки достигается вместе с многослойным контролем качества.</p><div class="quality-layers">${[
+    ['q2','01','Обязательные проверки','Сопоставляем ИНН и название, строки и итоги документа.'],
+    ['q3','02','Передача человеку','Учитываем уверенность, материальность и правила по контрагентам.'],
+    ['q4','03','Независимый агент','Проверяет запись в 1С по исходнику — после агента или человека.']
+  ].map(([id,num,t,d])=>viewContext.kind==='show'?`<div class="quality-layer"><span class="subtle-label">${num}</span><div class="row-title">${t}</div><p>${d}</p></div>`:`<a class="quality-layer" href="#/${id}"><span class="subtle-label">${num}</span><div class="row-title">${t}</div><p>${d}</p><span class="text-link headspace">Показать ${icon('arrow')}</span></a>`).join('')}</div>`;
+  if(s.id==='C0'&&!['platform','management'].includes(state.process))return head({...s,title:'Переводим автоматизацию в денежный эффект'})+`<div class="v5-effect">${[
+    ['Автоматизируем операции','Агенты забирают типовую работу, люди разбирают исключения.'],
+    ['Перестраиваем работу','Перераспределяем оставшиеся задачи между сотрудниками и участками.'],
+    ['Меняем загрузку команды','Высвобождаем сотрудников для другой работы или растём без найма.'],
+    ['Получаем денежный эффект','Снижаем затраты на участок или избегаем новых расходов на команду.']
+  ].map(([t,d],i)=>`<div><span class="v5-step">${String(i+1).padStart(2,'0')}</span><h2>${t}</h2><p>${d}</p></div>`).join('')}</div><p class="outcome spaced">Высвобождённые часы превращаются в деньги, когда меняется организация работы и затраты на неё.</p>`;
+  if(s.id==='C5')return outsourcingScreen(s);
+  if(s.id==='F1'&&state.outsourcingSelected)return head({...s,title:'Договариваемся об аутсорсинге первички'})+discussionQuestions([
+    'Какой участок и объём первички передаём?',
+    'Кто отвечает за подготовку предложения с каждой стороны?',
+    'К какой дате обсуждаем стоимость и передачу участка?'
+  ],'closing-questions');
+  let html=renderScreenR4(s);
+  if(['C2','C3','C4'].includes(s.id))html+=`<p class="caption v5-cash-condition">Часы показывают высвобождённый ресурс. Денежная окупаемость предполагает перераспределение работы и снижение затрат, избежанный найм или дополнительный оплаченный объём.</p>`;
+  return html;
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('[data-action="discuss-outsourcing"]')){
+    state.outsourcingSelected=true;go('f1');return;
+  }
+  if(e.target.closest('[data-action="goal"],[data-action="process"],#chapter-nav a,.chapter-directory a,.contents-group a,.show-toolbar a,.chapter-end a'))state.outsourcingSelected=false;
 },true);
 
 shell();render();
